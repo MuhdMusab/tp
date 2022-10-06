@@ -3,10 +3,13 @@ package seedu.address.ui;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+
 
 /**
  * The UI component that is responsible for receiving user command inputs.
@@ -80,6 +83,13 @@ public class CommandBox extends UiPart<Region> {
          * @see seedu.address.logic.Logic#execute(String)
          */
         CommandResult execute(String commandText) throws CommandException, ParseException;
+    }
+
+    @FXML
+    void clear(KeyEvent event) {
+        if (event.getCode().equals(KeyCode.ESCAPE)) {
+            commandTextField.clear();
+        }
     }
 
 }
