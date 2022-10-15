@@ -31,7 +31,7 @@ public class Appointment implements Comparable<Appointment> {
 
     @Override
     public String toString() {
-        return "Appointment at " + dateTime;
+        return dateTime.toString();
     }
 
     /**
