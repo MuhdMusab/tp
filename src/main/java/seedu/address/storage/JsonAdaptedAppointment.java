@@ -1,5 +1,7 @@
 package seedu.address.storage;
 
+import static seedu.address.model.person.Appointment.MESSAGE_CONSTRAINTS;
+
 import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -9,8 +11,6 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.parser.DateTimeParser;
 import seedu.address.model.person.Appointment;
 import seedu.address.model.person.DateTime;
-
-import static seedu.address.model.person.Appointment.MESSAGE_CONSTRAINTS;
 
 /**
  * Jackson-friendly version of {@link Appointment}.
