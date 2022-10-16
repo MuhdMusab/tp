@@ -47,11 +47,12 @@ class JsonAdaptedPerson {
      */
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-            @JsonProperty("email") String email, @JsonProperty("address") String address,
-            @JsonProperty("income") String income,
-            @JsonProperty("monthly") String monthly,
-            @JsonProperty("riskTag") String riskTag, @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
-            @JsonProperty("appointments") List<JsonAdaptedAppointment> appointments) {
+                             @JsonProperty("email") String email, @JsonProperty("address") String address,
+                             @JsonProperty("income") String income,
+                             @JsonProperty("monthly") String monthly,
+                             @JsonProperty("riskTag") String riskTag,
+                             @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
+                             @JsonProperty("appointments") List<JsonAdaptedAppointment> appointments) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -162,3 +163,4 @@ class JsonAdaptedPerson {
     }
 
 }
+

@@ -174,7 +174,7 @@ public class JsonAdaptedPersonTest {
         JsonAdaptedPerson person =
                 new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_INCOME,
                         VALID_MONTHLY, VALID_RISKTAG, VALID_TAGS, invalidAppointments);
-        assertThrows(DateTimeParseException.class, person::toModelType);
+        assertThrows(IllegalValueException.class, person::toModelType);
     }
 
 }
