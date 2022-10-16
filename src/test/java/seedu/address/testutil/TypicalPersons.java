@@ -43,7 +43,7 @@ public class TypicalPersons {
             .withEmail("johnd@example.com").withPhone("98765432").withIncome("$1000").withMonthly("$100")
             .withRiskTag("HIGH").withTags("owesMoney", "friends")
             .withAppointments("21-Jan-2023 09:00 AM", "21-Jan-2023 11:30 AM")
-            .build();
+            .buildWithAppointments();
     public static final Person CARL = new PersonBuilder().withName("Carl Kurz").withPhone("95352563")
             .withEmail("heinz@example.com").withAddress("wall street").withIncome("$1000").withMonthly("$200")
             .withRiskTag("HIGH").build();

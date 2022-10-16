@@ -17,6 +17,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.IncomeLevel;
 import seedu.address.model.person.Monthly;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.RiskTag;
 
@@ -36,7 +37,7 @@ public class JsonAdaptedPersonTest {
     private static final String VALID_EMAIL = BENSON.getEmail().toString();
     private static final String VALID_INCOME = BENSON.getIncome().toString();
     private static final String VALID_ADDRESS = BENSON.getAddress().toString();
-    private static final String VALID_RISKTAG = BENSON.getRiskTag().toString();
+    private static final String VALID_RISKTAG = BENSON.getRiskTag().tagName;
     private static final String VALID_MONTHLY = BENSON.getMonthly().toString();
     private static final List<JsonAdaptedTag> VALID_TAGS = BENSON.getTags().stream()
             .map(JsonAdaptedTag::new)
@@ -48,6 +49,16 @@ public class JsonAdaptedPersonTest {
     @Test
     public void toModelType_validPersonDetails_returnsPerson() throws Exception {
         JsonAdaptedPerson person = new JsonAdaptedPerson(BENSON);
+        assertEquals(BENSON, person.toModelType());
+    }
+
+    @Test
+    public void toModelType_newValidPerson_returnsPerson() throws Exception {
+        List<JsonAdaptedAppointment> validAppointments = new ArrayList<>(VALID_APPOINTMENTS);
+        JsonAdaptedPerson person =
+                new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_INCOME,
+                        VALID_MONTHLY, VALID_RISKTAG, VALID_TAGS, validAppointments);
+        Person person1 = person.toModelType();
         assertEquals(BENSON, person.toModelType());
     }
 
@@ -167,7 +178,7 @@ public class JsonAdaptedPersonTest {
     }
 
     @Test
-    public void toModelType_invalidAppointments_throwsDateTimeParseException() {
+    public void toModelType_invalidAppointments_throwsIllegalValueException() {
         List<JsonAdaptedAppointment> invalidAppointments = new ArrayList<>(VALID_APPOINTMENTS);
         invalidAppointments.add(new JsonAdaptedAppointment(INVALID_APPOINTMENTS));
         JsonAdaptedPerson person =

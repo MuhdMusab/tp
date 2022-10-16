@@ -17,7 +17,8 @@
     "riskTag": "LOW",
     "income": "$10000",
     "monthly": "$200",
-    "tagged" : [ "owesMoney", "friends" ]
+    "tagged" : [ "owesMoney", "friends" ],
+    "appointments" : ["21-Jan-2023 09:00 AM", "21-Jan-2023 11:30 AM" ]
   }, {
     "name" : "Carl Kurz",
     "phone" : "95352563",
