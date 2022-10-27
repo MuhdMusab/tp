@@ -294,6 +294,27 @@ Examples:
  
 ### 4.3 Calendar features
 
+#### 4.3.1 Calendar View 
+
+
+#### 4.3.2 Calendar Popup
+
+You can view more details of a client in the Calendar View through the Calendar Popup by interacting with the client's appointment button.
+
+These are the client details included in the Calendar Popup:
+* Name
+* Date and time of appointment
+* Location of appointment
+
+There are 3 ways to activate the Calendar Popup:
+1. Clicking on the client's appointment button.
+2. Using TAB/SHIFT + TAB key within the Calendar View to focus on the desired client's appointment button.
+3. Using UP/DOWN/LEFT/RIGHT key within the Calendar View to focus on the desired client's appointment button.
+
+The following figure shows the Calendar Popup being activated within the Calendar View:
+
+![](images/CalendarPopup.png)
+
 ### 4.4 Command Line tools
 #### 4.4.1 Parameter hints
 After typing in the command word, the command's parameters and their respective prefixes are shown. An example of a valid command will also be shown.
