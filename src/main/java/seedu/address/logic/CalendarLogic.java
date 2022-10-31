@@ -101,7 +101,7 @@ public class CalendarLogic {
         Text textHeader = getTextHeader();
         topCalendar.getChildren().addAll(textHeader, prevButton.getRoot(), nextButton.getRoot(),
                 jumpText.getRoot(), textValidation.getRoot());
-        topCalendar.setMargin(textHeader, new Insets(0, 50, 0, 0));
+        //topCalendar.setMargin(textHeader, new Insets(0, 30, 0, 0));
     }
 
     private void drawBody() {
@@ -212,7 +212,7 @@ public class CalendarLogic {
     private void updateCalendarMonth() {
         Text newMonthHeader = getTextHeader();
         topCalendar.getChildren().set(0, newMonthHeader);
-        topCalendar.setMargin(newMonthHeader, new Insets(0, 50, 0, 0));
+        //topCalendar.setMargin(newMonthHeader, new Insets(0, 30, 0, 0));
         resetCalendarBody();
         drawBody();
     }
