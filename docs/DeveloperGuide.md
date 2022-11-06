@@ -224,6 +224,33 @@ This is shown in the diagram below:
   * Pros: Lower number of commands needed to be executed to add all the desired `Appointments`
   * Cons: Complex input validation as unique `DateTimes` and `Locations` must be enforced within the command and alongside the existing `Appointments`. The maximum number of `Appointments` must also be enforced. Also, length of user input may be very long
 
+### Find feature
+
+The `find` command allows the user to search for multiple fields at once. An OR search is performed and clients matching at least one keyword will be returned.
+
+Overview of implementation for `find` command:
+
+Currently, the `FindCommandParser` class parses the different prefixes and their values and creates the corresponding `FindPredicate` (e.g the Name prefix will create a `NameContainsKeywordsPredicate` and the Income prefix will create an `IncomeContainsKeywordsPredicate`). These predicates are stored in a list, and are then passed as an argument to the `FindCommand`. The `FindCommand` updates the list of filtered `Persons`.
+
+Given below is an example success scenario and how the find mechanism behaves at each step.
+
+1. The user executes `find`.
+2. `LogicManager` calls `AddressBookParser#parseCommand(userInput)`.
+3. `AddressBookParser` calls `FindCommandParser#parse(userInput)`.
+4. `FindCommandParser` parses the arguments and converts all the prefixes and their values to a list of predicates.
+5. `LogicManager` calls `FindCommand#execute(model, storage)`.
+6. `FindCommand` calls `Model#updateFilteredPersonList(predicates)`.
+7. `FindCommand` updates the `filteredPersons` in `model` and only clients that match any of the keywords are shown.
+
+#### Design Considerations
+
+**Aspect: Format of the `find` command**
+* **Alternative 1 (current choice):** Use prefixes to search for specific fields 
+    * Pros: Simpler input validation and search time is shorter, as the search is only conducted for the input fields. 
+    * Cons: User may have to type a longer command to match the specific fields and values they require during search. 
+* **Alternative 2**: Input keywords will be searched for every field 
+    * Pros: Shorter command input, as only the required keywords are inputted.
+    * Cons: Longer search time for each individual command and more complex validation is required, as keywords may be different types like `String` or `Integer`.
 
 ### \[Proposed\] Undo/redo feature
 
