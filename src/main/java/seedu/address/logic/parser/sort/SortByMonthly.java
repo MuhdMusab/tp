@@ -9,6 +9,7 @@ import seedu.address.model.person.Person;
  */
 public class SortByMonthly implements Comparator<Person> {
 
+    private static final String DESC = "desc";
     private final String order;
 
     /**
@@ -22,7 +23,7 @@ public class SortByMonthly implements Comparator<Person> {
     @Override
     public int compare(Person p1, Person p2) {
 
-        if (this.order.equals("desc")) {
+        if (this.order.equals(DESC)) {
             return (int) (p2.getMonthly().convertMonthlyToLong() - p1.getMonthly().convertMonthlyToLong());
         }
 

@@ -10,6 +10,7 @@ import seedu.address.model.util.exceptions.SortedListException;
  */
 public class SortByAppointment implements Comparator<Person> {
 
+    private static final String DESC = "desc";
     private String order;
 
     /**
@@ -34,23 +35,21 @@ public class SortByAppointment implements Comparator<Person> {
             return 0;
         } else if (p1.getAppointments().isEmpty() && p2.getAppointments().isEmpty()) {
             return 0;
-        } else {
+        } else if (this.order.equals(DESC)) {
             // sort in descending order if user parse in "desc"
-            if (this.order.equals("desc")) {
-                try {
-                    return p2.getAppointments().get(0).getDateTime()
-                            .compareTo(p1.getAppointments().get(0).getDateTime());
-                } catch (SortedListException e) {
-                    throw new RuntimeException(e);
-                }
-            } else {
-                // default sorting order is ascending
-                try {
-                    return p1.getAppointments().get(0).getDateTime()
-                            .compareTo(p2.getAppointments().get(0).getDateTime());
-                } catch (SortedListException e) {
-                    throw new RuntimeException(e);
-                }
+            try {
+                return p2.getAppointments().get(0).getDateTime()
+                        .compareTo(p1.getAppointments().get(0).getDateTime());
+            } catch (SortedListException e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            // default sorting order is ascending
+            try {
+                return p1.getAppointments().get(0).getDateTime()
+                        .compareTo(p2.getAppointments().get(0).getDateTime());
+            } catch (SortedListException e) {
+                throw new RuntimeException(e);
             }
         }
     }

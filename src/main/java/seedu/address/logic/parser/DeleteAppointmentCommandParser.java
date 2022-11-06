@@ -26,8 +26,7 @@ public class DeleteAppointmentCommandParser implements Parser<DeleteAppointmentC
         Index personIndex;
         Index appointmentIndex;
 
-        String personAppointmentIndex = argMultimap.getPreamble().trim();
-        String[] splitStr = personAppointmentIndex.split("\\.");
+        String[] splitStr = getSplitStr(argMultimap);
         if (splitStr.length != 2) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     DeleteAppointmentCommand.MESSAGE_USAGE));
@@ -50,7 +49,11 @@ public class DeleteAppointmentCommandParser implements Parser<DeleteAppointmentC
                     DeleteAppointmentCommand.MESSAGE_USAGE), pe);
         }
 
-
         return new DeleteAppointmentCommand(personIndex, appointmentIndex);
+    }
+
+    private String[] getSplitStr(ArgumentMultimap argMultimap) {
+        String personAppointmentIndex = argMultimap.getPreamble().trim();
+        return personAppointmentIndex.split("\\.");
     }
 }

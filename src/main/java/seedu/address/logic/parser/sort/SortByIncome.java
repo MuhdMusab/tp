@@ -9,6 +9,7 @@ import seedu.address.model.person.Person;
  */
 public class SortByIncome implements Comparator<Person> {
 
+    private static final String DESC = "desc";
     private final String order;
 
     /**
@@ -24,7 +25,7 @@ public class SortByIncome implements Comparator<Person> {
 
         //Since income is Long, have to manually check and return an int
 
-        if (this.order.equals("desc")) {
+        if (this.order.equals(DESC)) {
             if (p2.getIncome().convertIncomeToLong() > p1.getIncome().convertIncomeToLong()) {
                 return 1;
             } else if (p2.getIncome().convertIncomeToLong() < p1.getIncome().convertIncomeToLong()) {

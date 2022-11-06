@@ -9,6 +9,7 @@ import seedu.address.model.person.Person;
  */
 public class SortByName implements Comparator<Person> {
 
+    private static final String DESC = "desc";
     private String order;
 
     /**
@@ -21,7 +22,7 @@ public class SortByName implements Comparator<Person> {
     @Override
     public int compare(Person p1, Person p2) {
         // sorts the contact by descending order if there is a desc keyword
-        if (this.order.equals("desc")) {
+        if (this.order.equals(DESC)) {
             return p2.getName().fullName.compareToIgnoreCase(p1.getName().fullName);
         }
 

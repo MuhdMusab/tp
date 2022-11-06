@@ -49,6 +49,11 @@ public class AddAppointmentCommandParser implements Parser<AddAppointmentCommand
                     AddAppointmentCommand.MESSAGE_USAGE), pe);
         }
 
+        Appointment appointment = getAppointment(argMultimap);
+        return new AddAppointmentCommand(personIndex, appointment);
+    }
+
+    private Appointment getAppointment(ArgumentMultimap argMultimap) throws ParseException {
         Appointment appointment;
         DateTime appointmentDateTime;
         Location appointmentLocation;
@@ -64,7 +69,6 @@ public class AddAppointmentCommandParser implements Parser<AddAppointmentCommand
             String str = e.getCause().getMessage();
             throw new ParseException(str);
         }
-
-        return new AddAppointmentCommand(personIndex, appointment);
+        return appointment;
     }
 }

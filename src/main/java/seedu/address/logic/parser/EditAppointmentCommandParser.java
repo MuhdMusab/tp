@@ -28,11 +28,7 @@ public class EditAppointmentCommandParser implements Parser<EditAppointmentComma
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_APPOINTMENT_DATE, PREFIX_APPOINTMENT_LOCATION);
 
-        Index personIndex;
-        Index appointmentIndex;
-
-        String personAppointmentIndex = argMultimap.getPreamble().trim();
-        String[] splitStr = personAppointmentIndex.split("\\.");
+        String[] splitStr = getSplitStr(argMultimap);
         if (splitStr.length != 2) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     EditAppointmentCommand.MESSAGE_USAGE));
@@ -48,27 +44,12 @@ public class EditAppointmentCommandParser implements Parser<EditAppointmentComma
             throw new ParseException(MESSAGE_INVALID_APPOINTMENT_DISPLAYED_INDEX);
         }
 
-        try {
-            personIndex = ParserUtil.parseIndex(oneBasedPersonIndexStr);
-            appointmentIndex = ParserUtil.parseIndex(oneBasedAppointmentIndexStr);
-        } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    EditAppointmentCommand.MESSAGE_USAGE), pe);
-        }
+        Index appointmentIndex = parseIndex(oneBasedAppointmentIndexStr);
+        Index personIndex = parseIndex(oneBasedPersonIndexStr);
         EditAppointmentDescriptor editAppointmentDescriptor = new EditAppointmentDescriptor();
 
-
         if (argMultimap.getValue(PREFIX_APPOINTMENT_DATE).isPresent()) {
-            try {
-                editAppointmentDescriptor.setDateTime(
-                    ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_APPOINTMENT_DATE).get()));
-            } catch (DateTimeParseException e) {
-                if (e.getCause() == null) {
-                    throw new ParseException(DateTime.MESSAGE_CONSTRAINTS);
-                }
-                String str = e.getCause().getMessage();
-                throw new ParseException(str);
-            }
+            setDateTimeInEditAppointmentDescriptor(argMultimap, editAppointmentDescriptor);
         }
 
         if (argMultimap.getValue(PREFIX_APPOINTMENT_LOCATION).isPresent()) {
@@ -82,5 +63,35 @@ public class EditAppointmentCommandParser implements Parser<EditAppointmentComma
         }
 
         return new EditAppointmentCommand(personIndex, appointmentIndex, editAppointmentDescriptor);
+    }
+
+    private Index parseIndex(String oneBasedIndexStr) throws ParseException {
+        Index index;
+        try {
+            index = ParserUtil.parseIndex(oneBasedIndexStr);
+        } catch (ParseException pe) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    EditAppointmentCommand.MESSAGE_USAGE), pe);
+        }
+        return index;
+    }
+
+    private String[] getSplitStr(ArgumentMultimap argMultimap) {
+        String personAppointmentIndex = argMultimap.getPreamble().trim();
+        String[] splitStr = personAppointmentIndex.split("\\.");
+        return splitStr;
+    }
+
+    private void setDateTimeInEditAppointmentDescriptor(ArgumentMultimap argMultimap, EditAppointmentDescriptor editAppointmentDescriptor) throws ParseException {
+        try {
+            editAppointmentDescriptor.setDateTime(
+                ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_APPOINTMENT_DATE).get()));
+        } catch (DateTimeParseException e) {
+            if (e.getCause() == null) {
+                throw new ParseException(DateTime.MESSAGE_CONSTRAINTS);
+            }
+            String str = e.getCause().getMessage();
+            throw new ParseException(str);
+        }
     }
 }
